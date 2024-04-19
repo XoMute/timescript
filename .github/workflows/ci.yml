@@ -5,7 +5,7 @@ name: Continuous Integration Workflow
 # Trigger this workflow whenever a new PR is created on the main branch
 on: 
     pull_request: 
-        branches: master
+        branches: main
 
 # Set some defaults
 defaults:
@@ -21,7 +21,13 @@ jobs:
         steps:
             - uses: actions/checkout@v4
               name: 'Checkout repository'
-
+            
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                node-version: 21
+                cache: 'yarn'
+            
             - name: 'Install Dependencies'
               run: yarn
 
@@ -33,9 +39,15 @@ jobs:
         steps:                                
             - uses: actions/checkout@v4       
               name: 'Checkout repository'     
-                                              
+            
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                node-version: 21
+                cache: 'yarn'
+
             - name: 'Install Dependencies'    
-              run: yarn
+              run: yarn                     
                                               
             - name: 'Run linter'              
               run: yarn lint
